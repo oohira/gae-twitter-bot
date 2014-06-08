@@ -9,5 +9,9 @@ libraries:
   version: latest
 
 handlers:
+- url: /days-left-bot
+  script: main.application
+  login: admin
+
 - url: /.*
   script: main.application
