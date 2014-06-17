@@ -9,10 +9,9 @@ class DaysLeftBotTest(unittest.TestCase):
         self.bot = days_left_bot.DaysLeftBot()
 
     def test_get_tweet_msg_normal_year(self):
-        # TODO: 新年のメッセージに変更
         self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2014, 1, 1)),
-            u'今年も 0/365 日経過 (0.0%)。あと 365 日')
+            u'2014 年あけましておめでとうございます。今年はあと 365 日')
         self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2014, 1, 2)),
             u'今年も 1/365 日経過 (0.3%)。あと 364 日')
@@ -26,14 +25,16 @@ class DaysLeftBotTest(unittest.TestCase):
             self.bot.get_tweet_msg(datetime.date(2014, 3, 1)),
             u'今年も 59/365 日経過 (16.2%)。あと 306 日')
         self.assertEqual(
+            self.bot.get_tweet_msg(datetime.date(2014, 12, 30)),
+            u'今年も 363/365 日経過 (99.5%)。あと 2 日')
+        self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2014, 12, 31)),
-            u'今年も 364/365 日経過 (99.7%)。あと 1 日')
+            u'2014 年もいよいよ大晦日。今年もあと 1 日')
 
     def test_get_tweet_msg_leap_year(self):
-        # TODO: 新年のメッセージに変更
         self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2012, 1, 1)),
-            u'今年も 0/366 日経過 (0.0%)。あと 366 日')
+            u'2012 年あけましておめでとうございます。今年はあと 366 日')
         self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2012, 1, 2)),
             u'今年も 1/366 日経過 (0.3%)。あと 365 日')
@@ -50,5 +51,8 @@ class DaysLeftBotTest(unittest.TestCase):
             self.bot.get_tweet_msg(datetime.date(2012, 3, 1)),
             u'今年も 60/366 日経過 (16.4%)。あと 306 日')
         self.assertEqual(
+            self.bot.get_tweet_msg(datetime.date(2012, 12, 30)),
+            u'今年も 364/366 日経過 (99.5%)。あと 2 日')
+        self.assertEqual(
             self.bot.get_tweet_msg(datetime.date(2012, 12, 31)),
-            u'今年も 365/366 日経過 (99.7%)。あと 1 日')
+            u'2012 年もいよいよ大晦日。今年もあと 1 日')

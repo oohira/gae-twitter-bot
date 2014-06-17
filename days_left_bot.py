@@ -18,8 +18,14 @@ class DaysLeftBot:
         total_days = (last_day - first_day).days + 1
         past_days = (today - first_day).days
         past_percentage = 100.0 * past_days / total_days
-        return u'今年も {0}/{1} 日経過 ({2:.1f}%)。あと {3} 日'.format(
-            past_days, total_days, past_percentage, total_days - past_days)
+        if past_days == 0:
+            return u'{0} 年あけましておめでとうございます。今年はあと {1} 日' \
+                .format(today.year, total_days)
+        elif past_days == total_days - 1:
+            return u'{0} 年もいよいよ大晦日。今年もあと 1 日'.format(today.year)
+        else:
+            return u'今年も {0}/{1} 日経過 ({2:.1f}%)。あと {3} 日'.format(
+                past_days, total_days, past_percentage, total_days - past_days)
 
     def tweet_current_datetime(self):
         JST = datetime.timedelta(hours=9)
