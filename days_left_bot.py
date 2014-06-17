@@ -17,8 +17,9 @@ class DaysLeftBot:
         last_day = today.replace(month=12, day=31)
         total_days = (last_day - first_day).days + 1
         past_days = (today - first_day).days
-        return u'今年も {0}/{1} 日経過。あと {2} 日'.format(
-            past_days, total_days, total_days - past_days)
+        past_percentage = 100.0 * past_days / total_days
+        return u'今年も {0}/{1} 日経過 ({2:.1f}%)。あと {3} 日'.format(
+            past_days, total_days, past_percentage, total_days - past_days)
 
     def tweet_current_datetime(self):
         JST = datetime.timedelta(hours=9)
