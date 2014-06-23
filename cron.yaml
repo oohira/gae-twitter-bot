@@ -1,5 +1,5 @@
 cron:
 - description: daily days-left-bot job
   url: /days-left-bot
-  schedule: every day 09:00
+  schedule: every 2 hours synchronized
   timezone: Asia/Tokyo
