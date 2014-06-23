@@ -17,7 +17,7 @@ class DaysLeftBot:
         now = datetime.datetime.utcnow() + JST
         msg = self.get_tweet_msg(now.year, now.month, now.day, now.hour)
         if msg:
-            self.api.update_status(msg)
+            self.api.update_status(msg + u' #あと何日')
         return msg
 
     def get_tweet_msg(self, year, month, day, hour):
