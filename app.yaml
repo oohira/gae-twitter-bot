@@ -15,6 +15,7 @@ handlers:
 
 - url: /darwin-bot
   script: main.application
+  login: admin
 
 - url: /.*
   script: main.application
