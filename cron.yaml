@@ -3,3 +3,7 @@ cron:
   url: /days-left-bot
   schedule: every 2 hours synchronized
   timezone: Asia/Tokyo
+- description: daily darwin-bot job
+  url: /darwin-bot
+  schedule: every 1 hours from 18:05 to 21:05
+  timezone: Asia/Tokyo
