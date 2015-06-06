@@ -1,5 +1,5 @@
 application: your-app-id
-version: 1
+version: 2
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -12,6 +12,9 @@ handlers:
 - url: /days-left-bot
   script: main.application
   login: admin
+
+- url: /darwin-bot
+  script: main.application
 
 - url: /.*
   script: main.application

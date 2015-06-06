@@ -1,5 +1,6 @@
 import days_left_bot
 import webapp2
+from darwin_bot import darwin_bot
 from google.appengine.api import users
 
 
@@ -21,7 +22,16 @@ class DaysLeftBotHandler(webapp2.RequestHandler):
         self.response.write(msg)
 
 
+class DarwinBotHandler(webapp2.RequestHandler):
+    def get(self):
+        bot = darwin_bot.DarwinBot()
+        msg = bot.tweet_current_datetime()
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write(msg)
+
+
 application = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/days-left-bot', DaysLeftBotHandler),
+    ('/darwin-bot', DarwinBotHandler),
 ], debug=True)

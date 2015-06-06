@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import datetime
+import os
 import tweepy
 import yaml
 
 
 class DaysLeftBot:
     def __init__(self):
-        config = yaml.safe_load(open('config.yaml').read())
+        path = os.path.join(os.path.dirname(__file__), 'config.yaml')
+        config = yaml.safe_load(open(path).read())
         auth = tweepy.OAuthHandler(config['API_KEY'], config['API_SECRET'])
         auth.set_access_token(
             config['ACCESS_TOKEN'], config['ACCESS_TOKEN_SECRET'])
