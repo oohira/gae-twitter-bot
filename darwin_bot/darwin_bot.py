@@ -103,6 +103,6 @@ class DarwinBot:
     def get_program_msg(self, program):
         msg = u'{0} {1}(日)午後7時30分〜 {2} #ダーウィンが来た'.format(
             program['title'], program['date'], program['url'])
-        for animal in program['animals']:
+        for animal in program['animals'][:3]:
             msg += u' #' + animal
         return msg

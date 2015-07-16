@@ -75,3 +75,8 @@ class DarwinBotTest(unittest.TestCase):
         self.assertEqual(
             self.bot.get_tweet_msg(2015, 3, 22, 20),
             u'次回の放送は、第405回「荒野の育メン鳥　恋に子育てに全力疾走！」 2015年3月29日(日)午後7時30分〜 http://cgi2.nhk.or.jp/darwin/broadcasting/detail.cgi?p=p405 #ダーウィンが来た #ダーウィンレア')
+
+    def test_get_too_long_tweet_msg(self):
+        self.assertEqual(
+            self.bot.get_tweet_msg(2015, 7, 12, 20),
+            u'次回の放送は、第420回「発見！海水浴場の大自然」 2015年7月19日(日)午後7時30分〜 http://cgi2.nhk.or.jp/darwin/broadcasting/detail.cgi?p=p420 #ダーウィンが来た #イシダイ #ミジンベニハゼ #タコ')
