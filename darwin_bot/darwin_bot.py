@@ -12,8 +12,8 @@ from bs4 import BeautifulSoup
 
 class DarwinBot:
     JST = pytz.timezone('Asia/Tokyo')
-    BASE_URL = 'http://www.nhk.or.jp/darwin/broadcasting/'
-    ARCHIVE_URL = 'http://cgi2.nhk.or.jp/darwin/broadcasting/'
+    BASE_URL = 'http://cgi2.nhk.or.jp/darwin/articles/'
+    ARCHIVE_URL = 'http://cgi2.nhk.or.jp/darwin/articles/'
 
     def __init__(self):
         path = os.path.join(os.path.dirname(__file__), 'config.yaml')
@@ -29,50 +29,20 @@ class DarwinBot:
             dt += datetime.timedelta(days_to_go)
         return dt
 
-    def parse_program(self, html):
-        soup = BeautifulSoup(html)
-        div = soup.select('#mainConMain')[0]
-        title = u'第' + div.h3.string
-        date = unicodedata.normalize('NFKC', div.p.string)
-        regexp = re.compile(u'[^\d]*((\d+)月(\d+)日\(日\)午後(\d+)時(\d+)分)')
-        match = regexp.match(date)
-        return {
-            'title': title,
-            'date': match.group(1),
-            'month': int(match.group(2)),
-            'day': int(match.group(3))
-        }
-
-    def get_next_program(self):
-        html = urllib2.urlopen(self.BASE_URL + 'next.html')
-        program = self.parse_program(html)
-        month = program['month']
-        day = program['day']
-        now = datetime.datetime.now(self.JST)
-        year = now.year if month >= now.month else now.year + 1
-        return self.get_archived_program(year, month, day)
-
-    def get_prev_program(self):
-        html = urllib2.urlopen(self.BASE_URL + 'review.html')
-        program = self.parse_program(html)
-        month = program['month']
-        day = program['day']
-        now = datetime.datetime.now(self.JST)
-        year = now.year if month <= now.month else now.year - 1
-        return self.get_archived_program(year, month, day)
-
     def get_archived_program(self, year, month, day):
         url = self.ARCHIVE_URL + 'date.cgi?p={0}&q={1}'.format(year, month)
         html = urllib2.urlopen(url)
         soup = BeautifulSoup(html)
-        for elem in soup.select('#resultArea .eachInfo > dl'):
-            dd = elem.find_all('dd')
-            if dd[0].string == '{0}/{1}/{2}'.format(year, month, day):
+        for elem in soup.select('#articleList > li'):
+            date = elem.find('p', class_='articleDate').string.lstrip(u'[放送日]')
+            if date == '{0}/{1}/{2}'.format(year, month, day):
+                title = elem.find('p', class_='articleTitle')
+                animals = elem.find('p', class_='articleName').string.lstrip(u'[登場動物]')
                 return {
-                    'url': self.ARCHIVE_URL + dd[1].a.get('href'),
-                    'title': dd[1].string,
+                    'url': self.ARCHIVE_URL + title.a.get('href'),
+                    'title': title.string.strip(),
                     'date': u'{0}年{1}月{2}日'.format(year, month, day),
-                    'animals': dd[2].string.split(u'・')
+                    'animals': animals.split(u'・')
                 }
 
     def tweet_current_datetime(self):
