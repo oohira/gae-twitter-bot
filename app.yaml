@@ -1,5 +1,5 @@
 application: your-app-id
-version: 5
+version: 6
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -7,6 +7,9 @@ threadsafe: true
 libraries:
 - name: ssl
   version: latest
+
+env_variables:
+  PYTHONHTTPSVERIFY: 1
 
 handlers:
 - url: /days-left-bot
