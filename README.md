@@ -2,9 +2,12 @@
 
 Some Twitter bots written in Python on Google App Engine.
 
+* https://twitter.com/darwin_nhk_bot
+* https://twitter.com/days_left_bot
+
 ## Debug
 
-```
+```sh
 $ cd gae-twitter-bot/
 $ vagrant up
 $ vagrant ssh
@@ -15,13 +18,13 @@ $ vagrant ssh
 
 ## Unit Test
 
-```
+```sh
 [vagrant@localhost vagrant]$ python run_tests.py ~/google_appengine
 ```
 
 ## Deploy
 
-```
+```yaml
 [vagrant@localhost vagrant]$ vi app.yaml
 application: your-app-id
 
