@@ -8,6 +8,9 @@ libraries:
 - name: ssl
   version: latest
 
+env_variables:
+  PYTHONHTTPSVERIFY: 1
+
 handlers:
 - url: /days-left-bot
   script: main.application
